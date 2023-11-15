@@ -1,0 +1,133 @@
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 300px;
+    background-color: #0F52BA;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 27px;
+    font-weight: 700;
+  }
+  
+  .closeButton {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .closeButton:hover {
+    background-color: darkgray;
+  }
+  
+  .miniCard {
+    margin-top: 30px;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .product {
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin: 5px;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .total {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .name {
+    width: 100px;
+  }
+
+  .quantity {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 60px;
+    height: 35px;
+    justify-content: space-between;
+    padding: 0 5px;
+    font-size: 16px;
+  }
+
+  .quantityGrid {
+    font-size: 10px;
+  }
+
+  .buttons {
+    appearance: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    cursor: pointer;
+  }
+
+  .price {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .remover {
+    cursor: pointer;
+    color: white;
+    background-color: black;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 5px;
+    height: 5px;
+  }
+
+  .finishButton {
+    width: 100%;
+    height: 50px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 20px 0;
+  }

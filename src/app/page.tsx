@@ -1,95 +1,60 @@
-import Image from 'next/image'
+"use client";
+
 import styles from './page.module.css'
+import { useProductsQuery } from './Querys/Products'
+import Card from './components/Card/Card'
+import { FaShoppingCart } from 'react-icons/fa'
+import Shimmer from './components/Shimmer/Shimmer';
+import { useCart } from './Querys/CartContext';
+import { useState } from 'react';
+import CartDrawer from './components/CartDrawer/CartDrawer';
 
 export default function Home() {
+
+  const { data, isLoading, isError } = useProductsQuery(1, 8, 'id', 'DESC');
+
+  const { addToCart, getTotalItems } = useCart();
+
+  const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false)
+
+  const openCartDrawer = () => {
+    setIsCartDrawerOpen(true);
+  };
+  
+  const closeCartDrawer = () => {
+    setIsCartDrawerOpen(false);
+  };
+
+  if (isLoading) {
+    return <Shimmer />;
+  }
+
+  if (isError) {
+    return <p>Error fetching data</p>;
+  }
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main>
+      <div className={styles.header}>
+        <div className={styles.headerText}>
+          <div className={styles.title}>MKS</div> Sistemas
         </div>
+        <button className={styles.cart} onClick={openCartDrawer}><FaShoppingCart /> {getTotalItems()}</button>
       </div>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className={styles.cardContainer}>
+        {data?.map((product) => (
+          <Card 
+            key={product.id} 
+            product={product} 
+            onAddToCart={() => addToCart({ id: product.id, name: product.name, price: parseFloat(product.price), photo: product.photo, quantity: 1 })} />
+        ))}
       </div>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className={styles.footer}>
+        MKS sistemas © Todos os direitos reservados
       </div>
+
+      {isCartDrawerOpen && <CartDrawer onClose={closeCartDrawer} />}
     </main>
   )
 }
